@@ -64,15 +64,16 @@
     <div v-else>
       <h4>You submitted successfully!</h4>
       <button class="btn btn-success" v-on:click="newSubject">Add another subject</button>
-      <button  @click="backToSubjects()" class="btn btn-primary" style="margin-top:12px">Back to subjects</button>
+      <button @click="backToSubjects()" class="btn btn-primary" style="margin-top:12px">Back to subjects</button>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+
 export default {
-name: "AddNewSubject",
+  name: "AddNewSubject",
   data() {
     return {
       subject: {
@@ -87,7 +88,7 @@ name: "AddNewSubject",
     };
   },
   methods: {
-    onSubmit(){
+    onSubmit() {
       var formData = {
         subjectId: this.subject.subjectId,
         name: this.subject.name,
@@ -104,7 +105,7 @@ name: "AddNewSubject",
           }).catch(error => console.log(error));
       this.submitted = true;
     },
-    cancel(){
+    cancel() {
       this.$router.push('/subjects');
     },
     newSubject() {
@@ -113,7 +114,7 @@ name: "AddNewSubject",
         subjectId: 0
       };
     },
-    backToSubjects(){
+    backToSubjects() {
       this.$router.push('/subjects');
     },
 
@@ -122,7 +123,7 @@ name: "AddNewSubject",
 </script>
 
 <style scoped>
-.submit-form{
+.submit-form {
   display: flex;
   flex-wrap: wrap;
   align-items: center;

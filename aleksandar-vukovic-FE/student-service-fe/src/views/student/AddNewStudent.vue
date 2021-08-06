@@ -8,7 +8,7 @@
       </div>
       <div class="form-group">
         <label for="lastname">Last name</label>
-        <input type="text" class="form-control" id="lastname" required v-model="student.lastname" name="lastname"  >
+        <input type="text" class="form-control" id="lastname" required v-model="student.lastname" name="lastname">
       </div>
 
       <div class="form-group">
@@ -18,7 +18,8 @@
 
       <div class="form-group">
         <label for="indexNumber">Index number</label>
-        <input type="number" class="form-control" id="indexNumber" required v-model="student.indexNumber" name="indexNumber">
+        <input type="number" class="form-control" id="indexNumber" required v-model="student.indexNumber"
+               name="indexNumber">
       </div>
       <div class="form-group">
         <label for="indexYear">Index year</label>
@@ -29,7 +30,7 @@
         <label style="margin:15px">City</label>
         <select v-model="student.city">
           <option v-for="city in cities" v-bind:key="city.cityId" :value="city">
-            {{city.cityName}}
+            {{ city.cityName }}
           </option>
         </select>
       </div>
@@ -41,7 +42,8 @@
 
       <div class="form-group">
         <label for="currentYearOfStudy">Current year of study</label>
-        <input type="number" class="form-control" id="currentYearOfStudy" required v-model="student.currentYearOfStudy" name="currentYearOfStudy">
+        <input type="number" class="form-control" id="currentYearOfStudy" required v-model="student.currentYearOfStudy"
+               name="currentYearOfStudy">
       </div>
 
       <button v-on:click="onSubmit" class="btn btn-success" style="margin-top: 7px; margin-right: 5px;">Submit</button>
@@ -51,7 +53,7 @@
     <div v-else>
       <h3>You submitted successfully!</h3>
       <button class="btn btn-success" v-on:click="newStudent">Add another student</button>
-      <button  @click="goToStudents()" class="btn btn-primary" style="margin-top:12px">List of students</button>
+      <button @click="goToStudents()" class="btn btn-primary" style="margin-top:12px">List of students</button>
 
     </div>
   </div>
@@ -59,21 +61,22 @@
 
 <script>
 import axios from "axios";
+
 export default {
   name: "add-student",
   data() {
     return {
-      cities:[],
+      cities: [],
       student: {
         studentId: 0,
         firstname: "",
         lastname: "",
         email: "",
-        indexNumber:"",
-        indexYear:"",
-        city:0,
-        address:"",
-        currentYearOfStudy:"",
+        indexNumber: "",
+        indexYear: "",
+        city: 0,
+        address: "",
+        currentYearOfStudy: "",
       },
 
       submitted: false
@@ -83,11 +86,11 @@ export default {
     this.cityList();
   },
   methods: {
-    cityList(){
+    cityList() {
       axios.get("http://localhost:8080/api/cities")
           .then((response) => {
             this.cities = response.data
-          }).catch((err) => console.log("Error while displaying cities"+ err))
+          }).catch((err) => console.log("Error while displaying cities" + err))
     },
     onSubmit() {
       var data = {
@@ -114,14 +117,14 @@ export default {
 
       this.submitted = true;
     },
-    cancel(){
+    cancel() {
       this.$router.push('/students');
     },
     newStudent() {
       this.submitted = false;
       this.student = {};
     },
-    goToStudents(){
+    goToStudents() {
       this.$router.push('/students');
     }
   }
@@ -141,6 +144,7 @@ select {
   appearance: none;
   background: url(https://www.eng.it/resources/images/logo%20eng.png) 96% / 15% no-repeat;
 }
+
 .submit-form {
   max-width: 300px;
   margin: auto;

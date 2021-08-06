@@ -18,17 +18,17 @@
       </thead>
       <tbody>
       <tr v-for="(professor, index) in professors" v-bind:key="professor.professorId">
-        <th scope="row">{{(currentPage * pageSize) + index + 1}}</th>
-        <td>{{professor.firstname}}</td>
-        <td>{{professor.lastname}}</td>
-        <td>{{professor.email}}</td>
-        <td>{{professor.city.cityName}}</td>
-        <td>{{professor.address}}</td>
-        <td>{{professor.phone}}</td>
-        <td>{{professor.reelectionDate}}</td>
-        <td>{{professor.title.titleName}}</td>
+        <th scope="row">{{ (currentPage * pageSize) + index + 1 }}</th>
+        <td>{{ professor.firstname }}</td>
+        <td>{{ professor.lastname }}</td>
+        <td>{{ professor.email }}</td>
+        <td>{{ professor.city.cityName }}</td>
+        <td>{{ professor.address }}</td>
+        <td>{{ professor.phone }}</td>
+        <td>{{ professor.reelectionDate }}</td>
+        <td>{{ professor.title.titleName }}</td>
         <td>
-          <div  v-if="editProfessor===professor.professorId">
+          <div v-if="editProfessor===professor.professorId">
             <form class="form-update">
               <div class="form-group row">
                 <label for="firstname" class="col-sm-2 col-form-label">First name</label>
@@ -53,7 +53,7 @@
                 <div class="col-sm-10">
                   <select v-model="professor.city">
                     <option v-for="city in cities" v-bind:key="city.cityId" :value="city" id="city">
-                      {{city.cityName}}
+                      {{ city.cityName }}
                     </option>
                   </select>
                 </div>
@@ -81,21 +81,29 @@
                 <div class="col-sm-10">
                   <select v-model="professor.title">
                     <option v-for="title in titles" v-bind:key="title.titleId" :value="title" id="title">
-                      {{title.titleName}}
+                      {{ title.titleName }}
                     </option>
                   </select>
                 </div>
               </div>
             </form>
             <button style="margin:5px" type="button" class="btn btn-success" v-on:click="updateProfessor(professor)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-check"
+                   viewBox="0 0 16 16">
+                <path
+                    d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
               </svg>
             </button>
-            <button class="btn btn-danger" v-on:click="editProfessor=null"> X </button>
+            <button class="btn btn-danger" v-on:click="editProfessor=null"> X</button>
           </div>
-          <button class="btn btn-primary" v-on:click="editProfessor=professor.professorId" style="margin-right: 5px"><b-icon-pencil/> Edit</button>
-          <button class="btn btn-danger" v-on:click="deleteProfessor(professor)"><b-icon-trash/> Delete</button>
+          <button class="btn btn-primary" v-on:click="editProfessor=professor.professorId" style="margin-right: 5px">
+            <b-icon-pencil/>
+            Edit
+          </button>
+          <button class="btn btn-danger" v-on:click="deleteProfessor(professor)">
+            <b-icon-trash/>
+            Delete
+          </button>
         </td>
       </tr>
       </tbody>
@@ -105,23 +113,27 @@
         <li class="page-item"><a class="page-link" @click="gotoToPage(0)">First</a></li>
         <li class="page-item"><a class="page-link" @click="previousPage()">Previous</a></li>
         <li class="page-item" :class="{'active': pageNum===currentPage}" v-for="pageNum of pageLinks" :key="pageNum">
-          <a class="page-link"  @click="gotoToPage(pageNum)" >{{pageNum}}</a></li>
+          <a class="page-link" @click="gotoToPage(pageNum)">{{ pageNum }}</a></li>
         <li class="page-item"><a class="page-link" @click="nextPage()">Next</a></li>
         <li class="page-item"><a class="page-link" @click="gotoToPage(totalPage-1)">Last</a></li>
       </ul>
     </nav>
     <div>
-      <button class="btn btn-primary" v-on:click="addProfessorPage" style="display: flex"><b-icon-plus/> Add new</button>
+      <button class="btn btn-primary" v-on:click="addProfessorPage" style="display: flex">
+        <b-icon-plus/>
+        Add new
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+
 export default {
-name: "Professor",
-  data(){
-    return{
+  name: "Professor",
+  data() {
+    return {
       cities: [],
       titles: [],
       professors: [],
@@ -139,23 +151,23 @@ name: "Professor",
     this.loadPage();
   },
   methods: {
-    professorList(){
+    professorList() {
       axios.get("http://localhost:8080/api/professors")
           .then((response) => {
             this.professors = response.data
-          }).catch((err) => console.log("Error for display professors"+ err))
+          }).catch((err) => console.log("Error for display professors" + err))
     },
-    cityList(){
+    cityList() {
       axios.get("http://localhost:8080/api/cities")
           .then((response) => {
             this.cities = response.data
-          }).catch((err) => console.log("Error for display cities"+ err))
+          }).catch((err) => console.log("Error for display cities" + err))
     },
-    titleList(){
+    titleList() {
       axios.get("http://localhost:8080/api/titles")
           .then((response) => {
             this.titles = response.data
-          }).catch((err) => console.log("Error for display titles"+ err))
+          }).catch((err) => console.log("Error for display titles" + err))
     },
     updateProfessor(professor) {
       fetch("http://localhost:8080/api/professors/" + professor.professorId, {
@@ -168,14 +180,14 @@ name: "Professor",
         this.editProfessor = null;
       })
     },
-    async deleteProfessor(professor){
+    async deleteProfessor(professor) {
       await axios.delete("http://localhost:8080/api/professors/" + professor.professorId);
       this.professorList();
     },
-    addProfessorPage(){
+    addProfessorPage() {
       this.$router.push('/new-professor');
     },
-    loadPage(){
+    loadPage() {
       axios.get(`http://localhost:8080/api/professors/page?page=${this.currentPage}&size=${this.pageSize}`)
           .then((response) => {
             console.log(response)
@@ -185,7 +197,7 @@ name: "Professor",
             this.professorList = response.data.content
           });
     },
-    previousPage(){
+    previousPage() {
       this.currentPage = this.currentPage > 0 ? this.currentPage - 1 : 0;
       console.log(this.currentPage)
     },
@@ -195,12 +207,12 @@ name: "Professor",
       this.loadPage();
     },
     gotoToPage(page) {
-      console.log('page',page);
+      console.log('page', page);
       this.currentPage = page;
       this.loadPage();
     },
     createPageLinks() {
-      const firsPage = this.currentPage ===0 ? this.currentPage : this.currentPage ===this.totalPages - 1?this.currentPage -2 : this.currentPage -1 ;
+      const firsPage = this.currentPage === 0 ? this.currentPage : this.currentPage === this.totalPages - 1 ? this.currentPage - 2 : this.currentPage - 1;
 
       this.pageLinks = [...Array(3).keys()].map(x => firsPage + x);
     }
